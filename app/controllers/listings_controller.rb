@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
 
   before_filter :prepare_categories
   before_filter :load_listing, only: [:show, :edit, :update, :approve, 
-                                      :review, :destroy, :submitter_review, :admin_review]
+                                      :review, :destroy, :submitter_review, :admin_review, :submit_listing]
   before_filter :authorize, only: [:approve]                                     
 
   def index
@@ -36,8 +36,12 @@ class ListingsController < ApplicationController
 
   def update 
     update_listing(@listing)
-    redirect_to listings_path(@listing)
-    flash[:notice] = "Listing has been updated."
+    if @listing.approved == true 
+      flash[:notice] = "Listing has been updated."
+      redirect_to listings_path
+    else 
+      redirect_to submitter_review_path(@listing)
+    end 
   end 
 
   def approve
@@ -45,8 +49,14 @@ class ListingsController < ApplicationController
     @listing.update(date_approved: Time.now)
     if params[:listing][:approved] == "1"
       @listing.send_payment_prompt
+      flash[:notice] = "Listing approved."
+    else
+      flash[:notice] = "Listing rejected."
+      @message = params[:listing][:message_to_submitter]
+      @listing.send_rejection(@message)
     end 
     redirect_to admin_path
+
   end 
 
   def destroy
@@ -60,10 +70,10 @@ class ListingsController < ApplicationController
   end 
 
   def submitter_review
-     if @listing.approved == true 
+    if @listing.approved == true 
       flash[:error] = "That page is not acessible."
       redirect_to listings_path
-   end 
+    end 
   end
 
   def admin_review
@@ -77,6 +87,12 @@ class ListingsController < ApplicationController
       flash[:error] = "That page is not accessible."
     end 
   end
+
+  def submit_listing
+    @listing.send_thanks
+    redirect_to listings_path
+    flash[:notice] = "Thanks for sumbitting #{@listing.title}!"
+  end 
 
   private
 

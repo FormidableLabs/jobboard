@@ -8,6 +8,9 @@ class Listing < ActiveRecord::Base
 
   mount_uploader :logo, LogoUploader
 
+  #this adds a virtual field to model 
+  attr_accessor :message_to_submitter
+
   validates :title, presence: true
   validates :description, presence: true
   validates :headquarters, presence: true
@@ -45,5 +48,13 @@ class Listing < ActiveRecord::Base
     SubmitterMailer.update_listing(self).deliver
   end
 
-  
+  def send_thanks
+    SubmitterMailer.thanks(self).deliver
+  end 
+
+  def send_rejection(message)
+    @message = message 
+    SubmitterMailer.rejection(self, @message).deliver
+  end 
+
 end
