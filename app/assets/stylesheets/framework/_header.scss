@@ -2,8 +2,12 @@
   overflow: hidden;
   padding-bottom: 3px;
 
+  text-align: center;
+
   @media only screen and (min-width: 700px) {
     padding-bottom: 12px;
+
+    text-align: left;
   }
 }
 
@@ -63,8 +67,14 @@
 }
 
 .logo {
-  display: block;
+  display: inline-block;
   margin: 0;
+
+  vertical-align: top;
+
+  @media only screen and (min-width: 700px) {
+    float: left;
+  }
 }
 
 .logo-section {
@@ -171,10 +181,11 @@
 }
 
 .searchbar {
-  float: left;
+  display: inline-block;
   margin-right: 24px;
 
   font-size: 0;
+  vertical-align: top;
 
   @media only screen and (min-width: 850px) {
     margin-right: 36px;
