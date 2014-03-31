@@ -1,11 +1,15 @@
 <header class="header" role="banner">
   <div class="header-wrapper">
     <div class="container clearfix">
-      <a href="<%= root_url %>" class="pull-left">
-        <h1 class="logo">
-          <span class="visuallyhidden">DevLocal Jobs</span>
-        </h1>
-      </a>
+      <h1 class="logo pull-left">
+        <a class="logo-section logo-devlocal" href="http://devlocal.io">
+          <span class="visuallyhidden">DevLocal</span>
+        </a>
+
+        <a class="logo-section logo-root" href="<%= root_url %>">
+          <span class="visuallyhidden">Jobs</span>
+        </a>
+      </h1>
 
       <div class="header-actions">
         <%= form_tag "/search", class: 'searchbar', method: "get" do %>

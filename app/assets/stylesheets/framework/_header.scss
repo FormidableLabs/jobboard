@@ -29,8 +29,8 @@
       position: absolute;
       top: -48px;
       right: -48px;
-      bottom: -15px;
-      left: -38px;
+      bottom: -22px;
+      left: -34px;
       z-index: -1;
 
       background: darken($blue, 10%);
@@ -38,9 +38,16 @@
     }
   }
 
-  .logo {
-    width: 200px;
+  .logo-section {
     height: 32px;
+  }
+
+  .logo-devlocal {
+    width: 134px;
+  }
+
+  .logo-root {
+    width: 70px;
   }
 }
 
@@ -57,12 +64,34 @@
 
 .logo {
   display: block;
-  width: 250px;
-  height: 40px;
   margin: 0;
+}
 
-  background-image: inline-image("logo.svg");
+.logo-section {
+  float: left;
+  height: 40px;
+
   background-repeat: no-repeat;
+}
+
+.logo-devlocal {
+  width: 170px;
+
+  background-image: inline-image("devlocal-logo.svg");
+
+  &:hover {
+    background-image: inline-image("devlocal-logo-active.svg");
+  }
+}
+
+.logo-root {
+  width: 88px;
+
+  background-image: inline-image("jobs-logo.svg");
+
+  &:hover {
+    background-image: inline-image("jobs-logo-active.svg");
+  }
 }
 
 .header-actions {
